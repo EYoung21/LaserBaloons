@@ -39,7 +39,7 @@ public class Soldier : MonoBehaviour {
 
 		Vector3 dir3D = crosshair.transform.position - laserStart.transform.position;
 		
-		transform.up = dir3D;
+		// transform.up = dir3D;
 		//added this line to make player direction work, other math below didn't work for some reason
 		
 		Vector2 dir2D = new Vector2(dir3D.x, dir3D.y);
@@ -57,17 +57,17 @@ public class Soldier : MonoBehaviour {
 			}
 		}
 
-		// Vector3 correctDirection = crosshair.transform.position - transform.position;
-        // correctDirection.Normalize();
+		Vector3 correctDirection = crosshair.transform.position - laserStart.transform.position;
+        correctDirection.Normalize();
         
-        // float ydir = correctDirection.y;
-        // float xdir = correctDirection.x;
+        float ydir = correctDirection.y;
+        float xdir = correctDirection.x;
 
-        // float correctAngle = Mathf.Atan2(ydir, xdir) * Mathf.Rad2Deg; //finds angle in rads and converts to degrees
+        float correctAngle = Mathf.Atan2(ydir, xdir) * Mathf.Rad2Deg; //finds angle in rads and converts to degrees
 
-        // correctAngle = correctAngle - 90;
+        correctAngle = correctAngle - 90;
 
-        // transform.rotation = Quaternion.AngleAxis(correctAngle,  Vector3.forward); //the axis we want is the world's global z-axis, this equals to Vector3.forward, or new Vector3(0,0,1)
+        transform.rotation = Quaternion.AngleAxis(correctAngle,  Vector3.forward); //the axis we want is the world's global z-axis, this equals to Vector3.forward, or new Vector3(0,0,1)
 
 
 	}
