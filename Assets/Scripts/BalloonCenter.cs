@@ -12,7 +12,9 @@ public class BalloonCenter : MonoBehaviour {
 	public float rotationSpeed = 0;
 
 	void Update(){
-		
+		float angle = rotationSpeed * Time.deltaTime;
+
+		transform.rotation *= Quaternion.AngleAxis(angle, Vector3.forward);
 	}
 
 }
