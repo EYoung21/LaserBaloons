@@ -27,16 +27,28 @@ public class Soldier : MonoBehaviour {
 
 		UpdateCrosshair(mouseWorldPos);
 
-		var origin = laserStart.transform.position;
-		var target = crosshair.transform.position;
+		// var origin = laserStart.transform.position;
+		// var target = crosshair.transform.position;
 
-		var direction = target - origin;
+		// var direction = target - origin;
 
-		var distancex = target.x - origin.x;
-		var distancey = target.y - origin.y;
+		// var distancex = target.x - origin.x;
+		// var distancey = target.y - origin.y;
 
-		var distanceOverall = Math.Sqrt((distancex * distancex) + (distancey*distancey));
+		// var distanceOverall = Math.Sqrt((distancex * distancex) + (distancey*distancey));
 
+		Vector3 dir3D = crosshair.transform.position - laserStart.transform.position;
+		Vector2 dir2D = new Vector2(dir3D.x, dir3D.y);
+
+		float length = dir2D.magnitude;
+
+		dir2D.Normalize();
+
+		RaycastHit2D hit = Physics2D.Raycast(laserStart.transform.position, dir2D, length, balloonLayerMask);
+
+		if (hit.collider.CompareTag("Balloon")) {
+			hit.collider.GetComponent<Balloon>().Pop();
+		}
 	}
 
     /// <summary>
