@@ -18,8 +18,8 @@ public class Poof : MonoBehaviour
     SpriteRenderer spriteRenderer;
 
     // Wait this amount of seconds to destroy the game object.
-    float destroyTimer = 1;
-
+    float destroyTimer;
+    int currFrameIndex = 0;
     /// <summary>
     /// Start is called by Unity. This will play our poof sound
     /// </summary>
@@ -29,6 +29,9 @@ public class Poof : MonoBehaviour
 			AudioSource.PlayClipAtPoint(poofSound, transform.position);
         }
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        destroyTimer = (1f / framesPerSecond);
+        currFrameIndex = 0;
     }
 
     // In Update you should add the sprite animation as shown on the lecture slides.
@@ -37,7 +40,13 @@ public class Poof : MonoBehaviour
         destroyTimer -= Time.deltaTime;
         if(destroyTimer <= 0)
         {
-            Destroy(gameObject);
+            currFrameIndex++;
+            if (currFrameIndex >= frames.Length) {
+                Destroy(gameObject);
+                return;
+            }
+            destroyTimer = (1f / framesPerSecond);
+            spriteRenderer.sprite = frames[currFrameIndex];
         }
     }
 }
