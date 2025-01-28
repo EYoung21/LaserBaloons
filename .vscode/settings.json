@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "LaserBalloons.sln"
+    "dotnet.defaultSolution": "LaserBaloons.sln"
 }

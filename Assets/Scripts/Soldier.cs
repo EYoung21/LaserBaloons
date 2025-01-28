@@ -48,11 +48,18 @@ public class Soldier : MonoBehaviour {
 
 		dir2D.Normalize();
 
+		Debug.Log($"Balloon Layer Mask value: {balloonLayerMask.value}");
 		RaycastHit2D hit = Physics2D.Raycast(laserStart.transform.position, dir2D, length, balloonLayerMask);
 
 		if (Input.GetMouseButton(0)) {
 			laserLineRenderer.enabled = true;
-			if (hit.collider.CompareTag("Balloon")) {
+			// Draw the raycast in the Scene view (red if no hit, green if hit)
+			Debug.DrawRay(laserStart.transform.position, dir2D * length, Color.red, 1.0f);
+			Debug.Log($"Raycast hit something: {hit.collider != null}");
+			Debug.Log($"Direction: {dir2D}, Length: {length}");
+			
+			if (hit.collider != null && hit.collider.CompareTag("Balloon")) {
+				Debug.Log("Hit a balloon!");
 				hit.collider.GetComponent<Balloon>().Pop();
 			}
 		}
@@ -69,7 +76,7 @@ public class Soldier : MonoBehaviour {
 
         transform.rotation = Quaternion.AngleAxis(correctAngle,  Vector3.forward); //the axis we want is the world's global z-axis, this equals to Vector3.forward, or new Vector3(0,0,1)
 
-
+        // Debug.Log($"LaserStart Z: {laserStart.transform.position.z}, Balloon Z: {FindObjectOfType<Balloon>()?.transform.position.z}");
 	}
 
     /// <summary>
