@@ -21,7 +21,7 @@ public class Soldier : MonoBehaviour {
 	public LayerMask balloonLayerMask;
 
 	void Update () {
-		
+		laserLineRenderer.enabled = false;
 		// use GetMouseWorldPosition() and UpdateCrosshair() to make the chrosshair move with the mouse
 		Vector3 mouseWorldPos = GetMouseWorldPosition();
 
@@ -50,8 +50,11 @@ public class Soldier : MonoBehaviour {
 
 		RaycastHit2D hit = Physics2D.Raycast(laserStart.transform.position, dir2D, length, balloonLayerMask);
 
-		if (hit.collider.CompareTag("Balloon")) {
-			hit.collider.GetComponent<Balloon>().Pop();
+		if (Input.GetMouseButton(0)) {
+			laserLineRenderer.enabled = true;
+			if (hit.collider.CompareTag("Balloon")) {
+				hit.collider.GetComponent<Balloon>().Pop();
+			}
 		}
 
 		// Vector3 correctDirection = crosshair.transform.position - transform.position;
